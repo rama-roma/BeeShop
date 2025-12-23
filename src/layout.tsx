@@ -11,11 +11,13 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "./store/theme/ThemeContext";
-import logo from "./images/logoAlif.png";
+// @ts-ignore
+import logo from './assets/logoAlif.png'
 import ButtonTheme from "./components/buttonTheme";
 import LanguageSelector from "./components/languageSelector";
 import { Link, Outlet, useNavigate } from "react-router";
-import qr from "./images/qr.png";
+// @ts-ignore
+import qr from './assets/qr.png';
 import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import {

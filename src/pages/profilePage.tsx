@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import user from ".././images/user.jpg";
+// @ts-ignore
+import user from '../assets/user.jpg'
 import { Heart, ShoppingBag, Smartphone, ThumbsUp } from "lucide-react";
 import { useTheme } from "../store/theme/ThemeContext";
 import { useUserProfileQuery } from "../store/api/authApi/auth";

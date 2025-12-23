@@ -18,6 +18,7 @@ const ProductPage = () => {
     color?: string;
     image?: string;
   }
+  
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
 

@@ -9,6 +9,8 @@ const CatalogPage = () => {
   const { data } = useGetCategoriesQuery();
   const navigate = useNavigate();
 
+  
+
   return (
     <main>
       <div

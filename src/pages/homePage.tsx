@@ -2,9 +2,12 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swipper from "../components/swipper";
-import img1 from "../images/banner1.jpg";
-import img2 from "../images/banner2.png";
-import img3 from "../images/banner3.png";
+// @ts-ignore
+import img1 from "../assets/banner1.jpg";
+// @ts-ignore
+import img2 from "../assets/banner2.png";
+// @ts-ignore;
+import img3 from "../assets/banner3.png";
 import { useGetProductsQuery } from "../store/api/productApi/product";
 import { useAddToCartMutation } from "../store/api/cartApi/cart";
 import { Eye, Heart, ShoppingCart } from "lucide-react";
@@ -127,7 +130,10 @@ const HomePage = () => {
                   )}
                 </div>
 
-                <button onClick={() => handleClickAdd(e.id)} className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black">
+                <button
+                  onClick={() => handleClickAdd(e.id)}
+                  className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
+                >
                   <ShoppingCart size={18} />
                   {t("main.lol6")}
                 </button>
@@ -150,10 +156,9 @@ const HomePage = () => {
           </Link>
         </div>
 
-        {/* <section className="flex flex-wrap gap-6">
+        <section className="flex flex-wrap gap-6">
           {data?.data?.products?.map((e: Product) => {
             const isFavorite = favorites.some((f) => f.id === e.id);
-
             return (
               <div
                 key={e.id}
@@ -199,10 +204,10 @@ const HomePage = () => {
                   {e.hasDiscount ? (
                     <div className="flex gap-2 items-center">
                       <span className="text-yellow-500 font-bold">
-                        ${e.discountPrice}
+                        ${e.price}
                       </span>
                       <span className="line-through text-gray-400">
-                        ${e.price}
+                        ${e.discountPrice}
                       </span>
                     </div>
                   ) : (
@@ -211,27 +216,16 @@ const HomePage = () => {
                 </div>
 
                 <button
-                  onClick={() => handleAddToCart(e.id)}
-                  disabled={addedToCart.has(e.id)}
-                  className={`mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg ${
-                    addedToCart.has(e.id)
-                      ? "bg-green-500 text-white"
-                      : "bg-yellow-400 hover:bg-yellow-500 text-black"
-                  }`}
+                  onClick={() => handleClickAdd(e.id)}
+                  className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
                 >
-                  {addedToCart.has(e.id) ? (
-                    <Check size={18} />
-                  ) : (
-                    <>
-                      <ShoppingCart size={18} />
-                      {t("main.lol6")}
-                    </>
-                  )}
+                  <ShoppingCart size={18} />
+                  {t("main.lol6")}
                 </button>
               </div>
             );
           })}
-        </section> */}
+        </section>
       </section>
 
       <Swipper img={img3} />
@@ -247,10 +241,9 @@ const HomePage = () => {
           </Link>
         </div>
 
-        {/* <section className="flex flex-wrap gap-6">
+        <section className="flex flex-wrap gap-6">
           {data?.data?.products?.map((e: Product) => {
             const isFavorite = favorites.some((f) => f.id === e.id);
-
             return (
               <div
                 key={e.id}
@@ -296,38 +289,28 @@ const HomePage = () => {
                   {e.hasDiscount ? (
                     <div className="flex gap-2 items-center">
                       <span className="text-yellow-500 font-bold">
-                        ${e.discountPrice}
+                        ${e.price}
                       </span>
                       <span className="line-through text-gray-400">
-                        ${e.price}
+                        ${e.discountPrice}
                       </span>
                     </div>
                   ) : (
                     <span className="font-bold">${e.price}</span>
                   )}
                 </div>
+
                 <button
-                  onClick={() => handleAddToCart(e.id)}
-                  disabled={addedToCart.has(e.id)}
-                  className={`mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg ${
-                    addedToCart.has(e.id)
-                      ? "bg-green-500 text-white"
-                      : "bg-yellow-400 hover:bg-yellow-500 text-black"
-                  }`}
+                  onClick={() => handleClickAdd(e.id)}
+                  className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
                 >
-                  {addedToCart.has(e.id) ? (
-                    <Check size={18} />
-                  ) : (
-                    <>
-                      <ShoppingCart size={18} />
-                      {t("main.lol6")}
-                    </>
-                  )}
+                  <ShoppingCart size={18} />
+                  {t("main.lol6")}
                 </button>
               </div>
             );
           })}
-        </section> */}
+        </section>
       </section>
     </main>
   );

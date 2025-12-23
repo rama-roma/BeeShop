@@ -6,7 +6,7 @@ import { useTheme } from "../store/theme/ThemeContext";
 const CatalogByIdPage = () => {
   const { id } = useParams();
 
-  const { data } = useGetCategoryByIdQuery(id);
+  const { data } = useGetCategoryByIdQuery(Number(id));
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme } = useTheme() as { theme: "light" | "dark" };

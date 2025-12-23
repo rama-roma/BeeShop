@@ -2,7 +2,8 @@ import { baseApi } from "../../utils/api";
 
 export interface SubCategory{
     id: number,
-    subCategoryName: string
+    subCategoryName: string,
+    subCategoryImage: string
 }
 
 
