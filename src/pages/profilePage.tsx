@@ -2,11 +2,26 @@ import { useTranslation } from "react-i18next";
 import user from ".././images/user.jpg";
 import { Heart, ShoppingBag, Smartphone, ThumbsUp } from "lucide-react";
 import { useTheme } from "../store/theme/ThemeContext";
+import { useUserProfileQuery } from "../store/api/authApi/auth";
+import jwtDecode from "jwt-decode";
 
 const ProfilePage = () => {
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
 
+  const token = localStorage.getItem("token");
+  console.log("token", token); 
+
+  let userId: string | null = null;
+  if (token) {
+    const payload = jwtDecode<{ sid: string }>(token); 
+    console.log("payload", payload); 
+    userId = payload.sid;
+  }
+
+  console.log("userId", userId); 
+
+  const { data } = useUserProfileQuery(userId || "");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -111,7 +126,7 @@ const ProfilePage = () => {
                 `}
               >
                 <span className="text-[grey]">{t("profile.pro5")}</span>
-                <h1></h1>
+                <h1>{data?.data?.userName}</h1>
               </div>
               <div
                 className={`
@@ -125,7 +140,7 @@ const ProfilePage = () => {
                 `}
               >
                 <span className="text-[grey]">{t("profile.pro6")}</span>
-                <h1></h1>
+                <h1>{data?.data?.phoneNumber}</h1>
               </div>
             </section>
             <section className="flex items-center justify-center gap-[30px]">

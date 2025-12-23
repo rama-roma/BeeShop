@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swipper from "../components/swipper";
 import img1 from "../images/banner1.jpg";
 import img2 from "../images/banner2.png";
 import img3 from "../images/banner3.png";
 import { useGetProductsQuery } from "../store/api/productApi/product";
+import { useAddToCartMutation } from "../store/api/cartApi/cart";
 import { Eye, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router";
 
@@ -20,18 +22,21 @@ interface Product {
 
 const HomePage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data } = useGetProductsQuery();
+
+  const [addToCart] = useAddToCartMutation();
+
+  const handleClickAdd = (productId: number) => {
+    addToCart(productId);
+  };
 
   const [favorites, setFavorites] = useState<Product[]>([]);
 
-
   useEffect(() => {
-    const stored = JSON.parse(
-      localStorage.getItem("favorites") || "[]"
-    );
+    const stored = JSON.parse(localStorage.getItem("favorites") || "[]");
     setFavorites(stored);
   }, []);
-
 
   const handleAddToFavorites = (product: Product) => {
     const exists = favorites.some((f) => f.id === product.id);
@@ -71,7 +76,6 @@ const HomePage = () => {
                 key={e.id}
                 className="w-56 rounded-xl shadow-2xl hover:shadow-xl transition relative flex flex-col p-4 gap-3 "
               >
-
                 <h1
                   className={`text-white text-xs w-14 text-center font-bold px-2 py-1 rounded-md ${
                     e.hasDiscount ? "bg-green-500" : "bg-red-500"
@@ -80,18 +84,13 @@ const HomePage = () => {
                   {e.hasDiscount ? "New" : "-20%"}
                 </h1>
 
-
                 <button
                   className="absolute top-2 right-2"
                   onClick={() => handleAddToFavorites(e)}
                 >
                   <Heart
                     size={22}
-                    className={
-                      isFavorite
-                        ? "fill-red-500 text-red-500"
-                        : ""
-                    }
+                    className={isFavorite ? "fill-red-500 text-red-500" : ""}
                   />
                 </button>
 
@@ -101,7 +100,6 @@ const HomePage = () => {
                 >
                   <Eye size={22} />
                 </Link>
-
 
                 <div className="w-full h-40 flex items-center justify-center">
                   <img
@@ -129,8 +127,7 @@ const HomePage = () => {
                   )}
                 </div>
 
-
-                <button className="mt-auto flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg">
+                <button onClick={() => handleClickAdd(e.id)} className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black">
                   <ShoppingCart size={18} />
                   {t("main.lol6")}
                 </button>
@@ -153,7 +150,7 @@ const HomePage = () => {
           </Link>
         </div>
 
-        <section className="flex flex-wrap gap-6">
+        {/* <section className="flex flex-wrap gap-6">
           {data?.data?.products?.map((e: Product) => {
             const isFavorite = favorites.some((f) => f.id === e.id);
 
@@ -162,7 +159,6 @@ const HomePage = () => {
                 key={e.id}
                 className="w-56 rounded-xl shadow-2xl hover:shadow-xl transition relative flex flex-col p-4 gap-3 "
               >
-
                 <h1
                   className={`text-white text-xs w-14 text-center font-bold px-2 py-1 rounded-md ${
                     e.hasDiscount ? "bg-green-500" : "bg-red-500"
@@ -171,18 +167,13 @@ const HomePage = () => {
                   {e.hasDiscount ? "New" : "-20%"}
                 </h1>
 
-
                 <button
                   className="absolute top-2 right-2"
                   onClick={() => handleAddToFavorites(e)}
                 >
                   <Heart
                     size={22}
-                    className={
-                      isFavorite
-                        ? "fill-red-500 text-red-500"
-                        : ""
-                    }
+                    className={isFavorite ? "fill-red-500 text-red-500" : ""}
                   />
                 </button>
 
@@ -193,7 +184,6 @@ const HomePage = () => {
                   <Eye size={22} />
                 </Link>
 
-  
                 <div className="w-full h-40 flex items-center justify-center">
                   <img
                     className="max-w-full max-h-full object-contain"
@@ -201,7 +191,6 @@ const HomePage = () => {
                     alt={e.productName}
                   />
                 </div>
-
 
                 <div>
                   <h2 className="font-semibold">{e.productName}</h2>
@@ -221,17 +210,29 @@ const HomePage = () => {
                   )}
                 </div>
 
-
-                <button className="mt-auto flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg">
-                  <ShoppingCart size={18} />
-                  {t("main.lol6")}
+                <button
+                  onClick={() => handleAddToCart(e.id)}
+                  disabled={addedToCart.has(e.id)}
+                  className={`mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg ${
+                    addedToCart.has(e.id)
+                      ? "bg-green-500 text-white"
+                      : "bg-yellow-400 hover:bg-yellow-500 text-black"
+                  }`}
+                >
+                  {addedToCart.has(e.id) ? (
+                    <Check size={18} />
+                  ) : (
+                    <>
+                      <ShoppingCart size={18} />
+                      {t("main.lol6")}
+                    </>
+                  )}
                 </button>
               </div>
             );
           })}
-        </section>
+        </section> */}
       </section>
-
 
       <Swipper img={img3} />
 
@@ -246,7 +247,7 @@ const HomePage = () => {
           </Link>
         </div>
 
-        <section className="flex flex-wrap gap-6">
+        {/* <section className="flex flex-wrap gap-6">
           {data?.data?.products?.map((e: Product) => {
             const isFavorite = favorites.some((f) => f.id === e.id);
 
@@ -269,11 +270,7 @@ const HomePage = () => {
                 >
                   <Heart
                     size={22}
-                    className={
-                      isFavorite
-                        ? "fill-red-500 text-red-500"
-                        : ""
-                    }
+                    className={isFavorite ? "fill-red-500 text-red-500" : ""}
                   />
                 </button>
 
@@ -284,7 +281,6 @@ const HomePage = () => {
                   <Eye size={22} />
                 </Link>
 
-
                 <div className="w-full h-40 flex items-center justify-center">
                   <img
                     className="max-w-full max-h-full object-contain"
@@ -292,7 +288,6 @@ const HomePage = () => {
                     alt={e.productName}
                   />
                 </div>
-
 
                 <div>
                   <h2 className="font-semibold">{e.productName}</h2>
@@ -311,15 +306,28 @@ const HomePage = () => {
                     <span className="font-bold">${e.price}</span>
                   )}
                 </div>
-
-                <button className="mt-auto flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg">
-                  <ShoppingCart size={18} />
-                  {t("main.lol6")}
+                <button
+                  onClick={() => handleAddToCart(e.id)}
+                  disabled={addedToCart.has(e.id)}
+                  className={`mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg ${
+                    addedToCart.has(e.id)
+                      ? "bg-green-500 text-white"
+                      : "bg-yellow-400 hover:bg-yellow-500 text-black"
+                  }`}
+                >
+                  {addedToCart.has(e.id) ? (
+                    <Check size={18} />
+                  ) : (
+                    <>
+                      <ShoppingCart size={18} />
+                      {t("main.lol6")}
+                    </>
+                  )}
                 </button>
               </div>
             );
           })}
-        </section>
+        </section> */}
       </section>
     </main>
   );

@@ -4,6 +4,7 @@ export interface Product {
   id: number;
   name: string;
   price: number;
+  productInMyCart: []
 }
 
 interface ProductsResponse {
@@ -20,10 +21,17 @@ export const productApi = baseApi.injectEndpoints({
       query: (id) => `/Product/get-product-by-id?id=${id}`,
       transformResponse: (res: { data: Product }) => res.data,
     }),
+
+    getProductByIdSubCategory: builder.query<Product[], number>({
+      query: (subCategoryId) => `/Product/get-products?SubcategoryId=${subCategoryId}`,
+      transformResponse: (res: { data: Product[] }) => res.data,
+    }),
+
   }),
 });
 
 export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
+  useGetProductByIdSubCategoryQuery
 } = productApi;

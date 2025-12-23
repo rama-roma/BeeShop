@@ -5,12 +5,14 @@ import { useRegisterMutation } from "../store/api/authApi/auth";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
+
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate()
   const [register] = useRegisterMutation();
 
   async function handleRegister() {

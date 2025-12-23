@@ -1,7 +1,7 @@
 import { baseApi } from "../../utils/api";
 
 interface AuthResponse {
-  data: string; 
+  data: string | null | object;
 }
 
 export interface AuthState {
@@ -35,12 +35,16 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
-    userProfile: build.query<AuthResponse, number>({
+    userProfile: build.query<AuthResponse, string>({
       query: (id) => ({
         url: `/UserProfile/get-user-profile-by-id?id=${id}`,
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }),
     }),
   }),
 });
-export const { useLoginMutation, useRegisterMutation, useUserProfileQuery } = authApi;
+export const { useLoginMutation, useRegisterMutation, useUserProfileQuery } =
+  authApi;

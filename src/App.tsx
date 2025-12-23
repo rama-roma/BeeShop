@@ -9,6 +9,8 @@ import ProfilePage from "./pages/profilePage"
 import RegisterPage from "./pages/registerPage"
 import WishlistPage from "./pages/wishlistPage"
 import InfoPage from "./pages/infoPage"
+import CatalogPage from "./pages/catalogPage"
+import CatalogByIdPage from "./pages/catalogByIdPage"
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/registerPage" element={<RegisterPage/>} />
             <Route path="/wishlistPage" element={<WishlistPage/>} />
             <Route path="/infoPage/:id" element={<InfoPage/>} />
+            <Route path="/catalogPage" element={<CatalogPage/>} />
+            <Route path="/catalogById/:id" element={<CatalogByIdPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>

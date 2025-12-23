@@ -14,7 +14,7 @@ import { useTheme } from "./store/theme/ThemeContext";
 import logo from "./images/logoAlif.png";
 import ButtonTheme from "./components/buttonTheme";
 import LanguageSelector from "./components/languageSelector";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
 import qr from "./images/qr.png";
 import { useEffect, useState } from "react";
 import { Modal } from "antd";
@@ -22,10 +22,18 @@ import {
   useGetCategoriesQuery,
   useGetCategoryByIdQuery,
 } from "./store/api/categoryApi/category";
+import { useGetCartQuery } from "./store/api/cartApi/cart";
 
 const Layout = () => {
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
+  const navigate = useNavigate();
+
+  const handleGoToCatalog = () => {
+    setOpenCatalog(false);
+    setActiveCategoryId(null);
+    navigate("/catalogPage");
+  };
 
   const [openCatalog, setOpenCatalog] = useState(false);
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
@@ -35,6 +43,8 @@ const Layout = () => {
   const { data: activeCategory } = useGetCategoryByIdQuery(activeCategoryId!, {
     skip: activeCategoryId === null,
   });
+
+  const { data: cartData } = useGetCartQuery();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -80,8 +90,13 @@ const Layout = () => {
           </div>
 
           <div className="flex flex-col items-center gap-[5px]">
-            <Link to="/cartPage">
+            <Link to="/cartPage" className="relative">
               <ShoppingBasket />
+              {cartData?.totalProducts > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
+                  {cartData.totalProducts}
+                </span>
+              )}
             </Link>
             <h1 className="text-[13px]">{t("navbar.title2")}</h1>
           </div>
@@ -171,6 +186,12 @@ const Layout = () => {
           setActiveCategoryId(null);
         }}
       >
+        <button
+          className="text-[blue] cursor-alias"
+          onClick={handleGoToCatalog}
+        >
+          {t("catalogPage.cat")}
+        </button>
         <section className="max-h-[500px] flex justify-between">
           <div className="overflow-auto w-1/2">
             {data?.data.map((category) => (
@@ -202,7 +223,15 @@ const Layout = () => {
               <p className="p-4 text-gray-400">Нет подкатегорий</p>
             ) : (
               activeCategory.subCategories.map((sub) => (
-                <div key={sub.id} className="p-2 border-b border-gray-300">
+                <div
+                  key={sub.id}
+                  onClick={() => {
+                    navigate(`/catalogById/${activeCategory.id}`);
+                    setOpenCatalog(false);
+                    setActiveCategoryId(null);
+                  }}
+                  className="p-2 border-b border-gray-300"
+                >
                   <h2>{sub.subCategoryName}</h2>
                 </div>
               ))

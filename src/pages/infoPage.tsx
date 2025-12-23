@@ -68,7 +68,7 @@ const InfoPage = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.images}`}
                       alt={data?.productName}
-                      className="w-25 h-25 rounded-[8px] shadow-2xl"
+                      className="w-25 h-25 object-cover rounded-[8px] shadow-2xl"
                     />
                   </div>
                 );
@@ -122,7 +122,7 @@ const InfoPage = () => {
                     <img
                       src={`https://store-api.softclub.tj/images/${e.images}`}
                       alt={data?.productName}
-                      className="w-120 h-115 rounded-[8px] shadow-2xl"
+                      className="w-120 h-115 object-contain rounded-[8px] shadow-2xl"
                     />
                   </div>
                 );
