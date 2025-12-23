@@ -1,22 +1,26 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useLoginMutation } from "../store/api/authApi/auth";
 import { useState } from "react";
+import { useAuth } from "../store/auth/authContext";
 
 const LoginPage = () => {
   const { t } = useTranslation();
 
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [login] = useLoginMutation();
+  const [loginMutation] = useLoginMutation();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const result = await login({ userName, password }).unwrap();
-      localStorage.setItem("token", result.data);
-      window.location.href = "/homePage";
+      const result = await loginMutation({ userName, password }).unwrap();
+      login(result.data); 
+      navigate("/homePage");
     } catch (error) {
       console.error("Login error", error);
     }

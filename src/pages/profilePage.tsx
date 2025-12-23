@@ -5,11 +5,13 @@ import { Heart, ShoppingBag, Smartphone, ThumbsUp } from "lucide-react";
 import { useTheme } from "../store/theme/ThemeContext";
 import { useUserProfileQuery } from "../store/api/authApi/auth";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router";
+import { useAuth } from '../store/auth/authContext';
 
 const ProfilePage = () => {
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
-
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   console.log("token", token);
@@ -24,10 +26,10 @@ const ProfilePage = () => {
   console.log("userId", userId);
 
   const { data } = useUserProfileQuery(userId || "");
-
+  const { isLoggedIn, logout } = useAuth();
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/homePage";
+    logout();
+    navigate("/homePage");
   };
 
   return (

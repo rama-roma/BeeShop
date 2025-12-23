@@ -12,12 +12,12 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "./store/theme/ThemeContext";
 // @ts-ignore
-import logo from './assets/logoAlif.png'
+import logo from "./assets/logoAlif.png";
 import ButtonTheme from "./components/buttonTheme";
 import LanguageSelector from "./components/languageSelector";
 import { Link, Outlet, useNavigate } from "react-router";
 // @ts-ignore
-import qr from './assets/qr.png';
+import qr from "./assets/qr.png";
 import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import {
@@ -25,6 +25,7 @@ import {
   useGetCategoryByIdQuery,
 } from "./store/api/categoryApi/category";
 import { useGetCartQuery } from "./store/api/cartApi/cart";
+import { useAuth } from "./store/auth/authContext";
 
 const Layout = () => {
   const { t } = useTranslation();
@@ -48,12 +49,8 @@ const Layout = () => {
 
   const { data: cartData } = useGetCartQuery();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(token ? true : false);
-  }, []);
 
   return (
     <>
