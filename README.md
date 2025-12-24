@@ -25,66 +25,6 @@ UI-фреймворк: Ant Design (antd) 🎨
 
 
 
-
-🗂 Структура проекта
-
-public/
-├─ i18n/
-│  └─ locales/
-│     ├─ en/translation.json
-│     ├─ ru/translation.json
-│     └─ tj/translation.json
-│  └─ index.ts
-├─ vite.svg
-
-src/
-├─ assets/                           # Изображения, иконки, логотипы
-├─ components/                       # Переиспользуемые UI-компоненты
-│  ├─ buttonTheme.tsx
-│  ├─ languageSelector.tsx
-│  └─ swiper.tsx
-├─ pages/                            # Страницы приложения
-│  ├─ cartPage.tsx
-│  ├─ catalogByIdPage.tsx
-│  ├─ catalogPage.tsx
-│  ├─ homePage.tsx
-│  ├─ infoPage.tsx
-│  ├─ loginPage.tsx
-│  ├─ productPage.tsx
-│  ├─ profilePage.tsx
-│  ├─ registerPage.tsx
-│  └─ wishlistPage.tsx
-├─ store/                            # Redux store и API слайсы
-│  ├─ api/
-│  │  ├─ authApi/auth.ts
-│  │  ├─ brandApi/brand.ts
-│  │  ├─ cartApi/cart.ts
-│  │  ├─ categoryApi/category.ts
-│  │  ├─ colorApi/color.ts
-│  │  ├─ productApi/product.ts
-│  │  └─ subCategoryApi/subCategory.ts
-│  ├─ auth/
-│  │  └─ authContext.tsx
-│  ├─ theme/
-│  │  └─ ThemeContext.tsx
-│  └─ utils/
-│     ├─ api.ts
-│     └─ store.ts
-├─ App.tsx
-├─ i18n.ts
-├─ index.css
-├─ layout.tsx
-└─ main.tsx
-
-.env                                # Переменные окружения
-.gitignore                           # Файл игнорирования Git
-tsconfig.app.json                     # Конфиг TypeScript
-package.json / package-lock.json      # Зависимости проекта
-README.md                             # Документация проекта
-index.html                            # HTML-шаблон
-
-
-
 🛠 Основные особенности проекта
 
 TypeScript во всём проекте для безопасности типов ✅
