@@ -50,6 +50,11 @@ const Layout = () => {
 
   const { data: cartData } = useGetCartQuery();
 
+  const [openCatalogMobile, setOpenCatalogMobile] = useState(false);
+  const [activeCategoryIdMobile, setActiveCategoryIdMobile] = useState<
+    number | null
+  >(null);
+
   const { isLoggedIn, logout } = useAuth();
 
   return (
@@ -241,165 +246,81 @@ const Layout = () => {
         </Modal>
       </div>
 
-      <div className="block md:hidden">
-        <header
-          className={`sticky top-0 z-50 px-4 py-3 flex items-center justify-between
-    ${theme === "dark" ? "bg-[#1f1f1f] text-white" : "bg-white text-black"}
-    shadow`}
-        >
-          <button onClick={() => setOpenCatalog(true)}>
-            <WalletCards />
-          </button>
-
+      <div className="block md:hidden p-4">
+        <header className="flex items-center justify-between mb-4">
           <Link to="/homePage">
-            <img src={logo} className="w-28" />
+            <img className="w-32" src={logo} alt="Logo" />
           </Link>
 
-          <div className="flex items-center gap-3">
-            <LanguageSelector />
-            <ButtonTheme />
+          <div
+            onClick={() => setOpenCatalogMobile(true)}
+            className="flex gap-2 bg-[#ffd36a] rounded-lg text-black p-2 justify-center items-center cursor-pointer"
+          >
+            <WalletCards />
+            <h1 className="font-bold text-sm">{t("navbar.title")}</h1>
           </div>
         </header>
 
-        <div className="px-4 mt-3">
-          <div className="relative">
-            <input
-              type="search"
-              placeholder={t("navbar.title1")}
-              className={`w-full rounded-xl border-2 p-2 pl-9
-        ${
-          theme === "dark"
-            ? "bg-[#2b2b2b] border-[#555] text-white placeholder-[#aaa]"
-            : "bg-white border-[#ffd36a] text-black placeholder-black"
-        }`}
-            />
-            <span className="absolute left-3 top-1/2 -translate-y-1/2">
-              <Search size={16} />
-            </span>
-          </div>
-        </div>
 
-        <main className="p-4 pb-24">
+        <main>
           <Outlet />
         </main>
 
-        <footer
-          className={`mt-10 p-6 text-center text-sm
-  ${
-    theme === "dark" ? "bg-zinc-900 text-zinc-400" : "bg-gray-100 text-gray-600"
-  }`}
-        >
-          <img src={logo} className="w-28 mx-auto mb-3" />
-          <p>{t("navbar.title5")}</p>
-
-          <div className="flex justify-center gap-4 mt-4">
-            <Instagram />
-            <Facebook />
-            <Send />
-          </div>
-        </footer>
-
-        <nav
-          className={`fixed bottom-0 left-0 right-0 flex justify-around items-center py-3
-    ${theme === "dark" ? "bg-[#1f1f1f]" : "bg-white"}
-    border-t`}
-        >
-          <Link to="/homePage" className="flex flex-col items-center text-xs">
-            <Home />
-            {t("navbar.title")}
-          </Link>
-
-          <Link
-            to="/wishlistPage"
-            className="flex flex-col items-center text-xs"
-          >
-            <Heart />
-            {t("navbar.title3")}
-          </Link>
-
-          <Link
-            to="/cartPage"
-            className="relative flex flex-col items-center text-xs"
-          >
-            <ShoppingBasket />
-            {cartData?.totalProducts > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
-                {cartData.totalProducts}
-              </span>
-            )}
-            {t("navbar.title2")}
-          </Link>
-
-          {isLoggedIn ? (
-            <Link
-              to="/profilePage"
-              className="flex flex-col items-center text-xs"
-            >
-              <User />
-              {t("navbar.title4")}
-            </Link>
-          ) : (
-            <Link
-              to="/loginPage"
-              className="flex flex-col items-center text-xs"
-            >
-              <LogIn />
-              {t("navbar.title16")}
-            </Link>
-          )}
-        </nav>
-
         <Modal
-          open={openCatalog}
+          title={t("main.lol7")}
+          open={openCatalogMobile}
           footer={null}
-          width="100%"
-          onCancel={() => {
-            setOpenCatalog(false);
-            setActiveCategoryId(null);
-          }}
+          width={350}
+          onCancel={() => setOpenCatalogMobile(false)}
         >
-          <h1 className="text-lg font-bold mb-4">{t("main.lol7")}</h1>
-
-          <button className="text-blue-600 mb-4" onClick={handleGoToCatalog}>
+          <button
+            className="text-[blue] cursor-pointer mb-2"
+            onClick={() => {
+              navigate("/catalogPage");
+              setOpenCatalogMobile(false);
+            }}
+          >
             {t("catalogPage.cat")}
           </button>
-
-          <div className="flex flex-col gap-2 max-h-[60vh] overflow-auto">
+          <section className="max-h-[400px] overflow-auto">
             {data?.map((category) => (
               <div
                 key={category.id}
-                onClick={() => setActiveCategoryId(category.id)}
-                className={`p-3 rounded-lg cursor-pointer
-        ${
-          activeCategoryId === category.id
-            ? "bg-gray-200 dark:bg-zinc-800"
-            : "hover:bg-gray-100 dark:hover:bg-zinc-900"
-        }`}
+                onClick={() => {
+                  setActiveCategoryIdMobile(category.id);
+                }}
+                className={`p-2 border-b border-gray-300 cursor-pointer ${
+                  activeCategoryIdMobile === category.id
+                    ? "bg-gray-200 font-semibold"
+                    : "hover:bg-gray-100"
+                }`}
               >
-                <div className="flex justify-between items-center">
-                  <h2 className="font-semibold">{category.categoryName}</h2>
-                  <img
-                    className="w-16 h-8 object-cover rounded"
-                    src={`https://store-api.softclub.tj/images/${category.categoryImage}`}
-                  />
-                </div>
+                <h2>{category.categoryName}</h2>
               </div>
             ))}
 
-            {activeCategory?.subCategories.map((sub) => (
-              <div
-                key={sub.id}
-                onClick={() => {
-                  navigate(`/catalogById/${activeCategory.id}`);
-                  setOpenCatalog(false);
-                  setActiveCategoryId(null);
-                }}
-                className="pl-6 py-2 text-sm border-l dark:border-zinc-700 cursor-pointer"
-              >
-                {sub.subCategoryName}
-              </div>
-            ))}
-          </div>
+            <div className="mt-2">
+              {activeCategoryIdMobile && (
+                <div>
+                  {data
+                    ?.find((cat) => cat.id === activeCategoryIdMobile)
+                    ?.subCategories.map((sub) => (
+                      <div
+                        key={sub.id}
+                        onClick={() => {
+                          navigate(`/catalogById/${activeCategoryIdMobile}`);
+                          setOpenCatalogMobile(false);
+                          setActiveCategoryIdMobile(null);
+                        }}
+                        className="p-2 border-b border-gray-300"
+                      >
+                        {sub.subCategoryName}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          </section>
         </Modal>
       </div>
     </>
