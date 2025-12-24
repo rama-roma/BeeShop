@@ -1,33 +1,32 @@
 🛒 AlifShop Marketplace
 
-Welcome to AlifShop – a modern e-commerce marketplace built with React, TypeScript, Vite, and Ant Design. This project is a full-featured online store with multi-language support 🌐, theming, dynamic product listings, favorites, cart management, and more.
+💻 Технологии
 
-💻 Tech Stack
+Фронтенд: React + TypeScript + Vite 🚀
 
-Frontend: React + TypeScript + Vite 🚀
+Управление состоянием: Redux Toolkit & RTK Query ⚡
 
-State Management: Redux Toolkit & RTK Query ⚡
+UI-фреймворк: Ant Design (antd) 🎨
 
-UI Framework: Ant Design (antd) 🎨
+Маршрутизация: React Router v6 🧭
 
-Routing: React Router v6 🧭
+Интернационализация: i18next 🌎
 
-Internationalization: i18next 🌎
+Стилизация: Tailwind CSS + собственные CSS ✨
 
-Styling: Tailwind CSS & custom CSS ✨
+Иконки: lucide-react 💎
 
-Icons: lucide-react 💎
+Аутентификация: JWT + Context API 🔑
 
-Authentication: JWT-based + Context API 🔑
+Утилиты: Axios для API-запросов, переменные окружения (.env) 🔧
 
-Utilities: Axios for API requests, environment variables (.env) 🔧
-
-Modal & Notifications: Ant Design Modal 🖼️
+Модальные окна и уведомления: Ant Design Modal 🖼️
 
 
 
-🗂 Project Structure
 
+
+🗂 Структура проекта
 
 public/
 ├─ i18n/
@@ -39,12 +38,12 @@ public/
 ├─ vite.svg
 
 src/
-├─ assets/                           # Images, icons, logos
-├─ components/                       # Reusable UI components
+├─ assets/                           # Изображения, иконки, логотипы
+├─ components/                       # Переиспользуемые UI-компоненты
 │  ├─ buttonTheme.tsx
 │  ├─ languageSelector.tsx
 │  └─ swiper.tsx
-├─ pages/                            # Application pages
+├─ pages/                            # Страницы приложения
 │  ├─ cartPage.tsx
 │  ├─ catalogByIdPage.tsx
 │  ├─ catalogPage.tsx
@@ -55,7 +54,7 @@ src/
 │  ├─ profilePage.tsx
 │  ├─ registerPage.tsx
 │  └─ wishlistPage.tsx
-├─ store/                            # Redux store & API slices
+├─ store/                            # Redux store и API слайсы
 │  ├─ api/
 │  │  ├─ authApi/auth.ts
 │  │  ├─ brandApi/brand.ts
@@ -77,138 +76,77 @@ src/
 ├─ layout.tsx
 └─ main.tsx
 
-.env                                # Environment variables
-.gitignore                           # Git ignore file
-tsconfig.app.json                     # TypeScript config
-package.json / package-lock.json      # Dependencies
-README.md                             # Project documentation
-index.html                            # HTML template
+.env                                # Переменные окружения
+.gitignore                           # Файл игнорирования Git
+tsconfig.app.json                     # Конфиг TypeScript
+package.json / package-lock.json      # Зависимости проекта
+README.md                             # Документация проекта
+index.html                            # HTML-шаблон
 
 
-  public/
-├─ i18n/
-│  └─ locales/
-│     ├─ en/translation.json
-│     ├─ ru/translation.json
-│     └─ tj/translation.json
-│  └─ index.ts
-├─ vite.svg
 
-src/
-├─ assets/                           # Images, icons, logos
-├─ components/                       # Reusable UI components
-│  ├─ buttonTheme.tsx
-│  ├─ languageSelector.tsx
-│  └─ swiper.tsx
-├─ pages/                            # Application pages
-│  ├─ cartPage.tsx
-│  ├─ catalogByIdPage.tsx
-│  ├─ catalogPage.tsx
-│  ├─ homePage.tsx
-│  ├─ infoPage.tsx
-│  ├─ loginPage.tsx
-│  ├─ productPage.tsx
-│  ├─ profilePage.tsx
-│  ├─ registerPage.tsx
-│  └─ wishlistPage.tsx
-├─ store/                            # Redux store & API slices
-│  ├─ api/
-│  │  ├─ authApi/auth.ts
-│  │  ├─ brandApi/brand.ts
-│  │  ├─ cartApi/cart.ts
-│  │  ├─ categoryApi/category.ts
-│  │  ├─ colorApi/color.ts
-│  │  ├─ productApi/product.ts
-│  │  └─ subCategoryApi/subCategory.ts
-│  ├─ auth/
-│  │  └─ authContext.tsx
-│  ├─ theme/
-│  │  └─ ThemeContext.tsx
-│  └─ utils/
-│     ├─ api.ts
-│     └─ store.ts
-├─ App.tsx
-├─ i18n.ts
-├─ index.css
-├─ layout.tsx
-└─ main.tsx
+🛠 Основные особенности проекта
 
-.env                                # Environment variables
-.gitignore                           # Git ignore file
-tsconfig.app.json                     # TypeScript config
-package.json / package-lock.json      # Dependencies
-README.md                             # Project documentation
-index.html                            # HTML template
-  
+TypeScript во всём проекте для безопасности типов ✅
 
+Быстрая сборка с помощью Vite ⚡
 
-🛠 Project Highlights
+Интеграция Ant Design для красивых UI-компонентов 🎨
 
-TypeScript everywhere for type safety ✅
+RTK Query для оптимизированных запросов к API и кэширования 🗃️
 
-Vite-powered for lightning-fast builds ⚡
+i18next для поддержки нескольких языков 🌍
 
-Ant Design integration for professional UI components 🎨
+Тёмная/светлая тема по переключению 🌑
 
-RTK Query for optimized API requests & caching 🗃️
+Адаптивный интерфейс для ПК и мобильных устройств 📱
 
-i18next for multilingual UI support 🌍
+Структура легко расширяется для новых функций 🏗️
 
-Dark mode toggle integrated across all pages 🌑
+📦 Обзор страниц
 
-Responsive and clean UI for desktop and mobile 📱
+HomePage.tsx – Главная страница с товарами на витрине
 
-Extensible structure to add new features easily 🏗️
+CatalogPage.tsx – Полный каталог товаров с фильтрами
 
+CatalogByIdPage.tsx – Товары по выбранной категории
 
-📦 Pages Overview
+ProductPage.tsx – Фильтрация товаров по цене, цвету, бренду
 
-HomePage.tsx – Landing page with featured products
+InfoPage.tsx – Детальная информация о товаре, функция копирования кода
 
-CatalogPage.tsx – Full product catalog with filters
+CartPage.tsx – Управление корзиной покупок
 
-CatalogByIdPage.tsx – Products filtered by category
+WishlistPage.tsx – Страница избранного
 
-ProductPage.tsx – Product list with price, color, brand filters
+LoginPage.tsx / RegisterPage.tsx – Аутентификация пользователя
 
-InfoPage.tsx – Detailed product view, copy code functionality
+ProfilePage.tsx – Профиль пользователя, телефон, история заказов
 
-CartPage.tsx – Shopping cart management
+📚 Обзор компонентов
 
-WishlistPage.tsx – Favorite products page
+ButtonTheme.tsx – Переключение светлой/тёмной темы
 
-LoginPage.tsx / RegisterPage.tsx – User authentication
+LanguageSelector.tsx – Смена языка интерфейса
 
-ProfilePage.tsx – User profile, phone, orders history
+Swiper.tsx – Карусель изображений / слайдер
 
+🎯 Цели проекта
 
-📚 Components Overview
+Создать полнофункциональный фронтенд e-commerce, совместимый с вашим бэкендом
 
-ButtonTheme.tsx – Switch between light/dark mode
+Поддержка нескольких языков и тем оформления
 
-LanguageSelector.tsx – Switch languages dynamically
+Поддержание чистой и модульной структуры кода
 
-Swiper.tsx – Image carousel / slider component
+Создание удобного и адаптивного интерфейса для ПК и мобильных устройств
 
-🎯 Goals
+🚀 Будущие улучшения
 
-Build a fully functional e-commerce frontend compatible with your backend
+Поиск товаров с автодополнением 🔍
 
-Enable multi-language & multi-theme support
+История заказов и процесс оформления 🧾
 
-Maintain clean, modular code structure for scalability
+Push-уведомления о скидках и акциях 🔔
 
-Create responsive, user-friendly UI for desktop & mobile
-
-
-🚀 Future Enhancements
-
-Product search with suggestions 🔍
-
-Order history and checkout flow 🧾
-
-Push notifications for deals and discounts 🔔
-
-Admin panel for managing products and categories 👑
-
-This project is designed to scale and evolve with new features as AlifShop grows 🌟.
+Админ-панель для управления товарами и категориями 👑
