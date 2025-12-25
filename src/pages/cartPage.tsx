@@ -11,7 +11,7 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { Product } from "../store/api/productApi/product";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 
 const CartPage = () => {
   const { data } = useGetCartQuery();

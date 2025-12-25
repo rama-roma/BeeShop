@@ -10,6 +10,7 @@ import InfoPage from "./pages/infoPage"
 import CatalogPage from "./pages/catalogPage"
 import CatalogByIdPage from "./pages/catalogByIdPage"
 import ProductPage from "./pages/productPage"
+import ErrorPage from "./pages/errorPage"
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/infoPage/:id" element={<InfoPage/>} />
             <Route path="/catalogPage" element={<CatalogPage/>} />
             <Route path="/catalogById/:id" element={<CatalogByIdPage/>} />
+            <Route path="*" element={<ErrorPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>

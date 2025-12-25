@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 import { useGetBrandsQuery } from "../store/api/brandApi/brand";
 import { useGetColorsQuery } from "../store/api/colorApi/color";
 import {
@@ -87,14 +87,13 @@ const ProductPage = () => {
       <div className="hidden md:block">
         <main className="flex mt-10 items-start gap-[20px] justify-start">
           <section className="w-[30%] flex flex-col items-start justify-center gap-[10px]">
-            <div className="flex justify-between items-center w-full mb-4">
+            <div className="flex justify-between items-center w-80 mb-4">
               <h2 className="text-xl font-bold">{t("amin.maga")}</h2>
               <button
                 onClick={resetFilters}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
               >
                 <RotateCcw size={16} />
-                {t("amin.reset")}
               </button>
             </div>
             <div className="flex flex-col gap-6">

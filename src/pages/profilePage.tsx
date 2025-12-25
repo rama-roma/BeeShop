@@ -2,11 +2,11 @@ import { useTranslation } from "react-i18next";
 // @ts-ignore
 import user from "../assets/user.jpg";
 import { Heart, ShoppingBag, Smartphone, ThumbsUp } from "lucide-react";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 import { useUserProfileQuery } from "../store/api/authApi/auth";
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router";
-import { useAuth } from "../store/auth/authContext";
+import { useAuth } from "../contextApi/auth/authContext";
 
 const ProfilePage = () => {
   const { t } = useTranslation();

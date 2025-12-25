@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useTheme } from '../store/theme/ThemeContext';
+import { useTheme } from '../contextApi/theme/ThemeContext';
 
 const ButtonTheme = () => {
   const { theme, toggleTheme } = useTheme();

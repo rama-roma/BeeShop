@@ -3,7 +3,7 @@ import { useGetProductByIdQuery } from "../store/api/productApi/product";
 import { useTranslation } from "react-i18next";
 import { Copy, MessageCircleMore, ShoppingCart } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 
 
 const InfoPage = () => {

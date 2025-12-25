@@ -12,13 +12,17 @@ import img3 from "../assets/banner3.png";
 
 import { useAddToCartMutation } from "../store/api/cartApi/cart";
 import { useGetProductsQuery, Product } from "../store/api/productApi/product";
+import { Modal, notification } from "antd";
+import { HeartFilled } from "@ant-design/icons";
 
 const HomePage = () => {
   const { t } = useTranslation();
   const { data: products } = useGetProductsQuery({});
+
   const [addToCart] = useAddToCartMutation();
 
   const navigate = useNavigate();
+  const [clickedId, setClickedId] = useState<number | null>(null);
 
   const handleClickAdd = (productId: number) => {
     addToCart(productId);
@@ -41,7 +45,19 @@ const HomePage = () => {
 
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+    notification.open({
+      message: exists ? t("set.t2") : t("set.t1"),
+      icon: exists ? (
+        <HeartFilled style={{ color: "gray" }} />
+      ) : (
+        <HeartFilled style={{ color: "red" }} />
+      ),
+      placement: "bottomRight",
+      duration: 2,
+    });
   };
+  const [openDialog, setOpenDialog] = useState(false);
 
   return (
     <>
@@ -121,14 +137,21 @@ const HomePage = () => {
                         <span className="font-bold">${e.price}</span>
                       )}
                     </div>
-
                     <button
-                      onClick={() =>
-                        localStorage.getItem("token")
-                          ? handleClickAdd(e.id)
-                          : navigate("/loginPage")
-                      }
-                      className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
+                      onClick={() => {
+                        if (localStorage.getItem("token")) {
+                          handleClickAdd(e.id);
+
+                          notification.success({
+                            message: t("set.ttt"),
+                            placement: "bottomRight",
+                            duration: 2,
+                          });
+                        } else {
+                          setOpenDialog(true);
+                        }
+                      }}
+                      className="cursor-pointer mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
                     >
                       <ShoppingCart size={18} /> {t("main.lol6")}
                     </button>
@@ -212,10 +235,21 @@ const HomePage = () => {
                         <span className="font-bold">${e.price}</span>
                       )}
                     </div>
-
                     <button
-                      onClick={() => handleClickAdd(e.id)}
-                      className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
+                      onClick={() => {
+                        if (localStorage.getItem("token")) {
+                          handleClickAdd(e.id);
+
+                          notification.success({
+                            message: t("set.ttt"),
+                            placement: "bottomRight",
+                            duration: 2,
+                          });
+                        } else {
+                          setOpenDialog(true);
+                        }
+                      }}
+                      className="cursor-pointer mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
                     >
                       <ShoppingCart size={18} /> {t("main.lol6")}
                     </button>
@@ -299,10 +333,21 @@ const HomePage = () => {
                         <span className="font-bold">${e.price}</span>
                       )}
                     </div>
-
                     <button
-                      onClick={() => handleClickAdd(e.id)}
-                      className="mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
+                      onClick={() => {
+                        if (localStorage.getItem("token")) {
+                          handleClickAdd(e.id);
+
+                          notification.success({
+                            message: t("set.ttt"),
+                            placement: "bottomRight",
+                            duration: 2,
+                          });
+                        } else {
+                          setOpenDialog(true);
+                        }
+                      }}
+                      className="cursor-pointer mt-auto flex items-center justify-center gap-2 font-semibold py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black"
                     >
                       <ShoppingCart size={18} /> {t("main.lol6")}
                     </button>
@@ -312,6 +357,22 @@ const HomePage = () => {
             </section>
           </section>
         </main>
+
+        <Modal
+          title={t("set.t")}
+          open={openDialog}
+          onCancel={() => setOpenDialog(false)}
+          onOk={() => {
+            setOpenDialog(false);
+            navigate("/loginPage");
+          }}
+          okText="Продолжить"
+          okButtonProps={{
+            style: { backgroundColor: "#FFD36A", color: "black" },
+          }}
+        >
+          <h1>{t("set.tt")}</h1>
+        </Modal>
       </div>
 
       <div className="block md:hidden">

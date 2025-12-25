@@ -38,7 +38,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (body) => ({
         url: `${API}/Account/register`,
         method: "POST",
-        body,
+        body, 
       }),
     }),
     userProfile: build.query<AuthResponse<UserProfile>, string>({

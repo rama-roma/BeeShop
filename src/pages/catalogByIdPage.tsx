@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetCategoryByIdQuery } from "../store/api/categoryApi/category";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 import { useEffect, useState } from "react";
 import {
   useGetProductByIdSubCategoryQuery,

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../store/theme/ThemeContext";
+import { useTheme } from "../contextApi/theme/ThemeContext";
 import { useGetCategoriesQuery } from "../store/api/categoryApi/category";
 import { useNavigate } from "react-router-dom";
 

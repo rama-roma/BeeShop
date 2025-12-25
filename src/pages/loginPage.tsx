@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import { useLoginMutation } from "../store/api/authApi/auth";
 import { useState } from "react";
-import { useAuth } from "../store/auth/authContext";
+import { useAuth } from "../contextApi/auth/authContext";
 
 const LoginPage = () => {
   const { t } = useTranslation();
