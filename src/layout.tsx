@@ -21,7 +21,7 @@ import LanguageSelector from "./components/languageSelector";
 import { Link, Outlet, useNavigate } from "react-router";
 // @ts-ignore
 import qr from "./assets/qr.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "antd";
 import {
   useGetCategoriesQuery,
@@ -29,11 +29,13 @@ import {
 } from "./store/api/categoryApi/category";
 import { useGetCartQuery } from "./store/api/cartApi/cart";
 import { useAuth } from "./contextApi/auth/authContext";
+import { useAppDispatch } from "./store/store";
 
 const Layout = () => {
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleGoToCatalog = () => {
     setOpenCatalog(false);
@@ -43,25 +45,26 @@ const Layout = () => {
 
   const [openCatalog, setOpenCatalog] = useState(false);
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
-
+  const { isLoggedIn, logout } = useAuth();
   const { data } = useGetCategoriesQuery();
 
   const { data: activeCategory } = useGetCategoryByIdQuery(activeCategoryId!, {
     skip: activeCategoryId === null,
   });
+  const { data: cartData } = useGetCartQuery(undefined, {
+    skip: !isLoggedIn,
+  });
 
-  const { data: cartData } = useGetCartQuery();
   console.log("cartData", cartData);
 
   const [openCatalogMobile, setOpenCatalogMobile] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
 
-  const cartCount =
+  let cartCount =
     cartData?.data?.[0].productsInCart.reduce(
       (sum: number, item: any) => sum + item.quantity,
       0
     ) ?? 0;
-
+if(!localStorage.getItem("token")) cartCount = 0
   return (
     <>
       <div className="hidden md:block">

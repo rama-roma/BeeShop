@@ -14,43 +14,71 @@ import { Product } from "../store/api/productApi/product";
 import { useTheme } from "../contextApi/theme/ThemeContext";
 
 const CartPage = () => {
+  interface Order {
+    name: string;
+    phone: string;
+    address: string;
+    items: string;
+    total: string;
+  }
+  const submitOrder = async (): Promise<void> => {
+    const order: Order = {
+      name: "name",
+      phone: "phone",
+      address: "adress",
+      items: "Shoes x1, Hoodie x2",
+      total: "$120",
+    };
+    try {
+      const response = await fetch("http://localhost:3001/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+      const data: { success: boolean } = await response.json();
+      if (data.success) {
+        alert("Order sent to Telegram");
+      } else {
+        alert("Order failed");
+      }
+    } catch {
+      alert("Backend not reachable");
+    }
+    setLoading(false);
+  };
   const { data } = useGetCartQuery();
   const { t } = useTranslation();
-
   const { theme } = useTheme();
-
   const [deleteFromCart] = useDeleteCartMutation();
   const [increase] = useIncreaseMutation();
   const [reduce] = useReduceMutation();
   const [clearCart] = useClearCartMutation();
-
   const [favorites, setFavorites] = useState<Product[]>([]);
-  const productsInCart = data?.data?.[0]?.productsInCart || [];
 
+  const productsInCart = data?.data?.[0]?.productsInCart || [];
   const totalPrice = productsInCart.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
-
+  
   useEffect(() => {
     const stored = JSON.parse(
       localStorage.getItem("favorites") || "[]"
     ) as Product[];
     setFavorites(stored);
   }, []);
-
   const handleAddToFavorites = (product: Product) => {
     const exists = favorites.some((f) => f.id === product.id);
     const updatedFavorites = exists
       ? favorites.filter((f) => f.id !== product.id)
       : [...favorites, product];
-
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
-
   const themeClasses =
-    theme === "dark"
+    theme == "dark"
       ? "bg-[#2b2b2b] text-white shadow-2xl"
       : "bg-[#ffffffa5] text-black shadow-2xl";
 
@@ -196,7 +224,7 @@ const CartPage = () => {
                 <br />
                 <div className="flex justify-between items-center">
                   <h1>{t("cart.ca12")}</h1>
-                  <p>$20</p>
+                  <p onClick={() => submitOrder()}>$20</p>
                 </div>
                 <br />
                 <div className="flex justify-between items-center">

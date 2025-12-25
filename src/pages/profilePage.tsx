@@ -7,8 +7,11 @@ import { useUserProfileQuery } from "../store/api/authApi/auth";
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../contextApi/auth/authContext";
+import { cartApi } from "../store/api/cartApi/cart"
+import { useAppDispatch } from "../store/store"; 
 
 const ProfilePage = () => {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { theme } = useTheme() as { theme: "light" | "dark" };
   const navigate = useNavigate();
@@ -29,6 +32,7 @@ const ProfilePage = () => {
   const { isLoggedIn, logout } = useAuth();
   const handleLogout = () => {
     logout();
+    dispatch(cartApi.util.resetApiState()); 
     navigate("/homePage");
   };
 
@@ -89,8 +93,10 @@ const ProfilePage = () => {
                   <ThumbsUp size={24} />
                   <h1 className="font-medium">{t("profile.pro3")}</h1>
                 </div>
-                <div
-                  className={`
+
+                <Link to="/wishlistPage">
+                  <div
+                    className={`
                   flex items-center p-4 gap-4 rounded-[10px] w-90 h-20
                   ${
                     theme === "dark"
@@ -99,10 +105,12 @@ const ProfilePage = () => {
                   }
                   transition-all duration-300
                 `}
-                >
-                  <Heart size={24} />
-                  <h1 className="font-medium">{t("profile.pro4")}</h1>
-                </div>
+                  >
+                    <Heart size={24} />
+                    <h1 className="font-medium">{t("profile.pro4")}</h1>
+                  </div>
+                </Link>
+
                 <div
                   onClick={handleLogout}
                   className={`
@@ -194,7 +202,6 @@ const ProfilePage = () => {
             </h1>
           </div>
 
-
           <Link to="/cartPage">
             <div
               className={`flex items-center p-3 gap-3 rounded-lg ${
@@ -242,7 +249,6 @@ const ProfilePage = () => {
             <span className="text-red-500">{t("profile.pro1")}</span>
           </div>
         </section>
-
 
         <section className="mt-4 flex flex-col gap-4">
           <div

@@ -1,4 +1,4 @@
-import { API, baseApi } from "../../utils/api";
+import { baseApi } from "../../utils/api";
 
 export const cartApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
