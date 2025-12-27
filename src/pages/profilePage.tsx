@@ -114,7 +114,7 @@ const ProfilePage = () => {
                 <div
                   onClick={handleLogout}
                   className={`
-                  flex items-center p-4 gap-4 rounded-[10px] w-90 h-20
+                   cursor-pointer flex items-center p-4 gap-4 rounded-[10px] w-90 h-20
                   ${
                     theme === "dark"
                       ? "bg-[#2b2b2b] text-white shadow-md"

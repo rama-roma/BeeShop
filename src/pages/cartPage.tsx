@@ -12,6 +12,10 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { Product } from "../store/api/productApi/product";
 import { useTheme } from "../contextApi/theme/ThemeContext";
+// @ts-ignore
+import img from '../assets/box.png'
+import { Modal } from "antd";
+import axios from "axios";
 
 const CartPage = () => {
   interface Order {
@@ -21,33 +25,30 @@ const CartPage = () => {
     items: string;
     total: string;
   }
-  const submitOrder = async (): Promise<void> => {
+   const submitOrder = async () => {
     const order: Order = {
-      name: "name",
-      phone: "phone",
-      address: "adress",
-      items: "Shoes x1, Hoodie x2",
-      total: "$120",
+      name:"Client",
+      phone:"Iphone",
+      address:"sino 136/6",
+      items: "Shoes",
+      total: "120$",
     };
+    const message = `
+Name: ${order.name}
+Phone: ${order.phone}
+Address: ${order.address}
+Items: ${order.items}
+Total: ${order.total}
+`;
     try {
-      const response = await fetch("http://localhost:3001/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
+      await axios.post(`https://api.telegram.org/bot8513823374:AAG7vH7hqu8ksXMD0bxJ9A3CQA1s38wsfdE/sendMessage`, {
+        chat_id: "-5138152234",
+        text: message,
       });
-      const data: { success: boolean } = await response.json();
-      if (data.success) {
-        alert("Order sent to Telegram");
-      } else {
-        alert("Order failed");
-      }
-    } catch {
-      alert("Backend not reachable");
+    } catch (error) {
+      console.error("Telegram error:", error);
     }
-
-  };
+  }
   const { data } = useGetCartQuery();
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -81,6 +82,9 @@ const CartPage = () => {
     theme == "dark"
       ? "bg-[#2b2b2b] text-white shadow-2xl"
       : "bg-[#ffffffa5] text-black shadow-2xl";
+
+
+  const [openModal, setOpenModal] = useState(false); 
 
   return (
     <>
@@ -242,7 +246,7 @@ const CartPage = () => {
                   <p>${totalPrice - 20}</p>
                 </div>
                 <br />
-                <button className="p-3 h-15 rounded-[10px] border border-amber-400 w-full bg-amber-400">
+                <button onClick={() => setOpenModal(true)} className="p-3 h-15 rounded-[10px] border border-amber-400 w-full bg-amber-400">
                   {t("cart.ca16")}
                 </button>
               </div>
@@ -250,12 +254,24 @@ const CartPage = () => {
           </main>
         ) : (
           <div className="h-100 flex flex-col items-center justify-center">
-            <div className="flex items-center gap-2.5">
-              <ShoppingBag />
+            <div className="flex flex-col items-center gap-2.5">
+              <img src={img} alt="" />
               <h1>{t("cart.ca10")}</h1>
+              <Link to='/homePage'>
+                <button className="p-2 bg-amber-400 w-40 rounded-[10px]">{t("set.t5")}</button>
+              </Link>
             </div>
           </div>
         )}
+        <Modal
+        open={openModal}
+        onCancel={() => setOpenModal(false)}
+        closable={{ 'aria-label': 'Custom Close Button' }}
+        title={t("set.t7")}
+        onOk={() => submitOrder()}
+        >
+          
+        </Modal>
       </div>
 
       <div className="block md:hidden px-4 pb-32">

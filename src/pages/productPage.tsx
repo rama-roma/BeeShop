@@ -46,7 +46,7 @@ const ProductPage = () => {
    const [search, setSearch] = useState(null);
 
   const filteredProducts = productData.filter((product) => {
-    // if (!product.productName.toLowerCase().includes(search.toLowerCase())) return false
+    // if (product.productName.toLowerCase().includes(search.toLowerCase())) return false
     if (categoryId && product.categoryId !== categoryId) return false;
     if (subCategoryIds.length === 0) return true;
     return product.subCategoryId

@@ -359,6 +359,8 @@ const HomePage = () => {
         </main>
 
         <Modal
+        style={{marginTop:"130px"}}
+          closable={{ 'aria-label': 'Custom Close Button' }}
           title={t("set.t")}
           open={openDialog}
           onCancel={() => setOpenDialog(false)}
@@ -366,7 +368,7 @@ const HomePage = () => {
             setOpenDialog(false);
             navigate("/loginPage");
           }}
-          okText="Продолжить"
+          okText={t("set.t6")}
           okButtonProps={{
             style: { backgroundColor: "#FFD36A", color: "black" },
           }}
@@ -379,7 +381,7 @@ const HomePage = () => {
         <main className="px-3 pb-24 flex flex-col gap-8">
           <Swipper img={img1} />
 
-          <section className="flex flex-col gap-3">
+          <section className="flex flex-col items-center gap-3">
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-bold">{t("main.lol")}</h1>
               <Link
@@ -390,14 +392,14 @@ const HomePage = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 flex flex-col items-center  justify-center">
               {products?.map((e) => {
                 const isFavorite = favorites.some((f) => f.id === e.id);
 
                 return (
                   <div
                     key={e.id}
-                    className="rounded-xl shadow-md flex flex-col p-2 gap-2 relative bg-white"
+                    className="rounded-xl  shadow-md flex flex-col w-70 p-2 gap-2 relative bg-white"
                   >
                     <span
                       className={`text-white text-[10px] w-fit px-2 py-[2px] rounded ${
@@ -426,10 +428,10 @@ const HomePage = () => {
                       <Eye size={18} />
                     </Link>
 
-                    <div className="h-28 flex items-center justify-center">
+                    <div className="h-38 flex items-center justify-center">
                       <img
                         src={`https://store-api.softclub.tj/images/${e.image}`}
-                        className="max-h-full object-contain"
+                        className="w-40 h-40 object-contain"
                       />
                     </div>
 
@@ -471,7 +473,7 @@ const HomePage = () => {
 
           <Swipper img={img2} />
 
-          <section className="flex flex-col gap-3">
+          <section className="flex flex-col items-center gap-3">
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-bold">{t("main.lol3")}</h1>
               <Link
@@ -482,14 +484,14 @@ const HomePage = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 flex flex-col items-center">
               {products?.map((e) => {
                 const isFavorite = favorites.some((f) => f.id === e.id);
 
                 return (
                   <div
                     key={e.id}
-                    className="rounded-xl shadow-md flex flex-col p-2 gap-2 relative bg-white"
+                    className="rounded-xl shadow-md flex flex-col p-2 w-80 gap-2 relative bg-white"
                   >
                     <span
                       className={`text-white text-[10px] w-fit px-2 py-[2px] rounded ${
