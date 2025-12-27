@@ -45,9 +45,12 @@ Total: ${order.total}
         chat_id: "-5138152234",
         text: message,
       });
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Telegram error:", error);
     }
+    setOpenModal(false)
+    clearCart()
   }
   const { data } = useGetCartQuery();
   const { t } = useTranslation();
